@@ -67,7 +67,10 @@ class JsonlDataset(Dataset):
         label = torch.zeros(self.n_classes)
         label[[self.labels.index(tgt) for tgt in self.data[index]["label"]]] = 1
 
-        image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
+        try:
+            image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
+        else:
+            image = Image.new("RGB", (600, 600), (255, 255, 255))
         image = self.transforms(image)
 
         return {
@@ -81,6 +84,7 @@ class JsonlDataset(Dataset):
     def get_label_frequencies(self):
         label_freqs = Counter()
         for row in self.data:
+            print(row)
             label_freqs.update(row["label"])
         return label_freqs
 
@@ -106,29 +110,8 @@ def collate_fn(batch):
 
 def get_mmimdb_labels():
     return [
-        "Crime",
-        "Drama",
-        "Thriller",
-        "Action",
-        "Comedy",
-        "Romance",
-        "Documentary",
-        "Short",
-        "Mystery",
-        "History",
-        "Family",
-        "Adventure",
-        "Fantasy",
-        "Sci-Fi",
-        "Western",
-        "Horror",
-        "Sport",
-        "War",
-        "Music",
-        "Musical",
-        "Animation",
-        "Biography",
-        "Film-Noir",
+        0,
+        1,
     ]
 
 
