@@ -290,7 +290,7 @@ def evaluate(args, model, tokenizer, criterion, prefix=""):
         "loss": eval_loss,
         "macro_f1": f1_score(out_label_ids, preds, average="macro"),
         "micro_f1": f1_score(out_label_ids, preds, average="micro"),
-        "accuracy": accuracy_score(preds[-1],out_label_ids[-1]),
+        "accuracy": accuracy_score(preds.flatten(),out_label_ids.flatten()),
     }
 
     output_eval_file = os.path.join(eval_output_dir, prefix, "eval_results.txt")
