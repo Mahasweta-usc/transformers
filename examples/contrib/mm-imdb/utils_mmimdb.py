@@ -65,7 +65,7 @@ class JsonlDataset(Dataset):
         sentence = sentence[: self.max_seq_length]
 
         label = torch.zeros(self.n_classes)
-        label[[self.labels.index(tgt) for tgt in self.data[index]["label"]]] = 1
+        label[[self.labels.index(tgt) for tgt in [self.data[index]["label"]]]] = 1
 
         try:
             image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
