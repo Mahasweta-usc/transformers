@@ -26,7 +26,7 @@ import random
 import numpy as np
 import torch
 import torch.nn as nn
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from torch.utils.data.distributed import DistributedSampler
 from tqdm import tqdm, trange
@@ -290,6 +290,7 @@ def evaluate(args, model, tokenizer, criterion, prefix=""):
         "loss": eval_loss,
         "macro_f1": f1_score(out_label_ids, preds, average="macro"),
         "micro_f1": f1_score(out_label_ids, preds, average="micro"),
+        "accuracy": accuracy_score(preds,out_label_ids)
     }
 
     output_eval_file = os.path.join(eval_output_dir, prefix, "eval_results.txt")
