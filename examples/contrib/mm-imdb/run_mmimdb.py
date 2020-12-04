@@ -286,7 +286,7 @@ def evaluate(args, model, tokenizer, criterion, prefix=""):
             out_label_ids = np.append(out_label_ids, labels.detach().cpu().numpy(), axis=0)
 
     eval_loss = eval_loss / nb_eval_steps
-    accuracy = accuracy_score(preds.reshape((-1,1)),out_label_ids.reshape((-1,1)))
+    accuracy = accuracy_score(preds.flatten(),out_label_ids.flatten())
     result = {
         "loss": eval_loss,
         "macro_f1": f1_score(out_label_ids, preds, average="macro"),
