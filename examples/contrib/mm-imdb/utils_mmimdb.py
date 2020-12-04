@@ -69,7 +69,7 @@ class JsonlDataset(Dataset):
 
         try:
             image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
-        else:
+        except:
             image = Image.new("RGB", (600, 600), (255, 255, 255))
         image = self.transforms(image)
 
