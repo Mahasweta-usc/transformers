@@ -85,7 +85,7 @@ class JsonlDataset(Dataset):
         label_freqs = Counter()
         for row in self.data:
             print(row)
-            label_freqs.update(row["label"])
+            label_freqs.update([row["label"]])
         return label_freqs
 
 
