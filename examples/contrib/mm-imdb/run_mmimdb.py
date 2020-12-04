@@ -286,12 +286,15 @@ def evaluate(args, model, tokenizer, criterion, prefix=""):
             out_label_ids = np.append(out_label_ids, labels.detach().cpu().numpy(), axis=0)
 
     eval_loss = eval_loss / nb_eval_steps
+    accuracy = accuracy_score(preds.reshape((-1,1)),out_label_ids.reshape((-1,1)))
     result = {
         "loss": eval_loss,
         "macro_f1": f1_score(out_label_ids, preds, average="macro"),
         "micro_f1": f1_score(out_label_ids, preds, average="micro"),
-        "accuracy": accuracy_score(preds.flatten(),out_label_ids.flatten()),
+        "accuracy": accuracy,
     }
+
+    logger.info(result)
 
     output_eval_file = os.path.join(eval_output_dir, prefix, "eval_results.txt")
     with open(output_eval_file, "w") as writer:
