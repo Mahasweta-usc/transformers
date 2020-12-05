@@ -56,8 +56,7 @@ class JsonlDataset(Dataset):
             temp_labels = [item[0]["label"] for item in Data]
             print(len(Data),len(temp_labels))
             self.data, _ = oversample.fit_resample(np.array(Data), temp_labels)
-            print(self.data)
-            self.data = self.data.reshape(-1,1).tolist()
+            self.data = np.array(self.data).flatten()
         else:
             self.data = [json.loads(l) for l in open(data_path)]
 
