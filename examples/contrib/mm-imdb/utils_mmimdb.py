@@ -18,6 +18,7 @@ import json
 import os
 from collections import Counter
 
+from imblearn.over_sampling import RandomOverSampler
 import torch
 import torch.nn as nn
 import torchvision
@@ -47,7 +48,14 @@ class ImageEncoder(nn.Module):
 
 class JsonlDataset(Dataset):
     def __init__(self, data_path, tokenizer, transforms, labels, max_seq_length):
-        self.data = [json.loads(l) for l in open(data_path)]
+        Data = [json.loads(l) for l in open(data_path)]
+        if "train" in data_path:
+            oversample = RandomOverSampler(sampling_strategy='minority')
+            temp_labels = [item["label"] for item in self.data]
+            self.data, _ = oversample.fit_resample(Data, temp_labels)
+        else:
+            self.data = Data
+
         self.data_dir = os.path.dirname(data_path)
         self.tokenizer = tokenizer
         self.labels = labels
