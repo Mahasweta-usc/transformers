@@ -68,9 +68,10 @@ class JsonlDataset(Dataset):
         label[[self.labels.index(tgt) for tgt in [self.data[index]["label"]]]] = 1
 
         try:
-            print(os.path.join(self.data_dir, self.data[index]["img"]))
             image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
-        except:
+            print(os.path.join(self.data_dir, self.data[index]["img"]))
+        except Exception as e:
+            print(e)
             image = Image.new("RGB", (600, 600), (255, 255, 255))
         image = self.transforms(image)
 
@@ -85,7 +86,7 @@ class JsonlDataset(Dataset):
     def get_label_frequencies(self):
         label_freqs = Counter()
         for row in self.data:
-            print(row)
+            # print(row)
             label_freqs.update([row["label"]])
         return label_freqs
 
