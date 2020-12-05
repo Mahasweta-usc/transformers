@@ -53,7 +53,7 @@ class JsonlDataset(Dataset):
         if "train" in data_path:
             oversample = RandomOverSampler(sampling_strategy='minority')
             temp_labels = np.array([item["label"] for item in Data])
-            self.data, _ = oversample.fit_resample(np.array(Data), temp_labels)
+            self.data, _ = oversample.fit_resample(np.array(Data).reshape(1,-1), temp_labels)
         else:
             self.data = Data
 
