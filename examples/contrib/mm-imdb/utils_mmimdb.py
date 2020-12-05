@@ -17,7 +17,8 @@
 import json
 import os
 from collections import Counter
-
+import numpy as np
+import pandas as pd
 from imblearn.over_sampling import RandomOverSampler
 import torch
 import torch.nn as nn
@@ -51,7 +52,7 @@ class JsonlDataset(Dataset):
         Data = [json.loads(l) for l in open(data_path)]
         if "train" in data_path:
             oversample = RandomOverSampler(sampling_strategy='minority')
-            temp_labels = [item["label"] for item in Data]
+            temp_labels = pd.DataFrame([item["label"] for item in Data])
             self.data, _ = oversample.fit_resample(Data, temp_labels)
         else:
             self.data = Data
