@@ -52,6 +52,7 @@ class JsonlDataset(Dataset):
         
         if "train" in data_path:
             Data = [[json.loads(l)] for l in open(data_path)]
+            print(Data)
             oversample = RandomOverSampler(sampling_strategy='minority')
             temp_labels = [item[0]["label"] for item in Data]
             print(len(Data),len(temp_labels))
