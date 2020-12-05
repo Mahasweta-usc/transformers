@@ -68,6 +68,7 @@ class JsonlDataset(Dataset):
         label[[self.labels.index(tgt) for tgt in [self.data[index]["label"]]]] = 1
 
         try:
+            print(os.path.join(self.data_dir, self.data[index]["img"]))
             image = Image.open(os.path.join(self.data_dir, self.data[index]["img"])).convert("RGB")
         except:
             image = Image.new("RGB", (600, 600), (255, 255, 255))
