@@ -363,7 +363,7 @@ class MMBTForClassification(nn.Module):
         labels=None,
         return_dict=None,
     ):
-        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+        return_dict = return_dict if return_dict is not None else self.config.return_dict
 
         outputs = self.mmbt(
             input_modal=input_modal,
