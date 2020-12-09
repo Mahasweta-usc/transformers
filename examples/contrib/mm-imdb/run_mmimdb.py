@@ -22,7 +22,8 @@ import json
 import logging
 import os
 import random
-
+import faulthandler
+faulthandler.enable()
 import numpy as np
 import torch
 import torch.nn as nn
