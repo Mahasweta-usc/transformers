@@ -37,12 +37,12 @@ class ImageEncoder(nn.Module):
         model = torchvision.models.resnet152(pretrained=True)
         modules = list(model.children())[:-2]
         self.model = nn.Sequential(*modules)
-        count = 0
-        for elem in self.model.parameters():
-            count += 1
-            if count > 140:
-                elem.requires_grad = True
-            print(elem)
+        ct = 0
+        for child in self.model.children():
+        ct += 1
+        if ct > 140:
+            for param in child.parameters():param.requires_grad = False
+            
         self.pool = nn.AdaptiveAvgPool2d(POOLING_BREAKDOWN[args.num_image_embeds])
 
     def forward(self, x):
