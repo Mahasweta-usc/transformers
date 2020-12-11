@@ -39,11 +39,11 @@ class ImageEncoder(nn.Module):
         self.model = nn.Sequential(*modules)
         ct = 0
         for child in self.model.children():
-        ct += 1
-        if ct > 140:
-            for param in child.parameters():param.requires_grad = False
-            
-        self.pool = nn.AdaptiveAvgPool2d(POOLING_BREAKDOWN[args.num_image_embeds])
+            ct += 1
+            if ct > 140:
+                for param in child.parameters():param.requires_grad = False
+                
+            self.pool = nn.AdaptiveAvgPool2d(POOLING_BREAKDOWN[args.num_image_embeds])
 
     def forward(self, x):
         # Bx3x224x224 -> Bx2048x7x7 -> Bx2048xN -> BxNx2048
