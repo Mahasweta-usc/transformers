@@ -40,9 +40,9 @@ class ImageEncoder(nn.Module):
         ct = 0
         for child in self.model.children():
             ct += 1
-            if ct > 140:
+            if ct > 120:
                 for param in child.parameters():param.requires_grad = False
-                
+
             self.pool = nn.AdaptiveAvgPool2d(POOLING_BREAKDOWN[args.num_image_embeds])
 
     def forward(self, x):
