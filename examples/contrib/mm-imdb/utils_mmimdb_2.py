@@ -42,6 +42,7 @@ class ImageEncoder(nn.Module):
             count += 1
             if count > 140:
                 elem.requires_grad = True
+            print(elem)
         self.pool = nn.AdaptiveAvgPool2d(POOLING_BREAKDOWN[args.num_image_embeds])
 
     def forward(self, x):
