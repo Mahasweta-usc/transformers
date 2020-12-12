@@ -292,7 +292,9 @@ def evaluate(args, model, tokenizer, criterion, prefix=""):
         "loss": eval_loss,
         "macro_f1": f1_score(out_label_ids, preds, average="macro"),
         "micro_f1": f1_score(out_label_ids, preds, average="micro"),
-        "accuracy": accuracy,
+        "samples_f1" : f1_score(out_label_ids, preds,average="micro"),
+        "binary_f1" : f1_score(out_label_ids, preds,average="binary"),
+        # "accuracy": accuracy,
     }
 
     logger.info(result)
